@@ -6,20 +6,20 @@ import FormButton from '../components/FormButton'
 import FormInput from '../components/FormInput'
 import SocialButton from '../components/SocialButton'
 
-const LoginScreen = ({ navigation }) => {
+const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
     return (
         <View style={styles.container}>
 
-            <Text style={styles.text}>RN Social Apps</Text>
+            <Text style={styles.text}>Create an account</Text>
 
             <FormInput
-                placeholderText="Email"
-                iconType="user"
                 labelValue={email}
                 onChangeText={(userEmail) => setEmail(userEmail)}
+                placeholderText="Email"
+                iconType="user"
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -33,16 +33,34 @@ const LoginScreen = ({ navigation }) => {
                 secureTextEntry={true}
             />
 
-
-            <FormButton
-                buttonTitle="Sign In"
-                onPress={() => alert("Yuhhuu")}
+            <FormInput
+                onChangeText={(userPassword) => setPassword(userPassword)}
+                placeholderText="Confirm Password"
+                iconType="lock"
+                secureTextEntry={true}
             />
 
+            <FormButton
+                buttonTitle="Sign Up"
+                onPress={() => register(email, password)}
+            />
 
-            <TouchableOpacity style={styles.forgotButton}>
-                <Text style={styles.navButtonText}>Forgot Password</Text>
-            </TouchableOpacity>
+            <View style={styles.textPrivate}>
+                <Text style={styles.color_textPrivate}>
+                    By registering, you confirm that you accept our{' '}
+                </Text>
+                <TouchableOpacity onPress={() => alert('Terms Clicked!')}>
+                    <Text style={[styles.color_textPrivate, { color: '#e88832' }]}>
+                        Terms of service
+          </Text>
+                </TouchableOpacity>
+                <Text style={styles.color_textPrivate}> and </Text>
+                <Text style={[styles.color_textPrivate, { color: '#e88832' }]}>
+                    Privacy Policy
+        </Text>
+            </View>
+
+
 
             <SocialButton
                 buttonTitle="Sign in with Facebook"
@@ -62,10 +80,11 @@ const LoginScreen = ({ navigation }) => {
 
             <TouchableOpacity
                 style={styles.forgotButton}
-                onPress={() => navigation.navigate('Signup')}>
+                onPress={() => navigation.navigate('Signup')}
+            >
                 <Text style={styles.navButtonText}>
-                    Don't have an acount? Create here
-        </Text>
+                    Don't have an account? create here
+                </Text>
             </TouchableOpacity>
 
 
@@ -73,19 +92,15 @@ const LoginScreen = ({ navigation }) => {
     )
 }
 
-export default LoginScreen
+export default SignupScreen
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#f9fafd',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        paddingTop: 50
-    },
-    logo: {
-        height: 150,
-        width: 150,
-        resizeMode: 'cover',
     },
     text: {
         fontFamily: 'Kufam-SemiBoldItalic',
@@ -96,13 +111,22 @@ const styles = StyleSheet.create({
     navButton: {
         marginTop: 15,
     },
-    forgotButton: {
-        marginVertical: 35,
-    },
     navButtonText: {
         fontSize: 18,
         fontWeight: '500',
         color: '#2e64e5',
         fontFamily: 'Lato-Regular',
+    },
+    textPrivate: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginVertical: 35,
+        justifyContent: 'center',
+    },
+    color_textPrivate: {
+        fontSize: 13,
+        fontWeight: '400',
+        fontFamily: 'Lato-Regular',
+        color: 'grey',
     },
 });
